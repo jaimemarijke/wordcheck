@@ -11,30 +11,48 @@ import Alamofire
 
 class ViewController: UIViewController, UISearchBarDelegate {
     //MARK: Properties
+
     @IBOutlet weak var searchText: UISearchBar!
     @IBOutlet weak var searchDisplayText: UILabel!
     @IBOutlet weak var decisionText: UILabel!
     @IBOutlet weak var isText: UILabel!
     @IBOutlet weak var definitionText: UITextView!
     @IBOutlet weak var definitionLabel: UITextView!
-    @IBOutlet weak var definitionPoweredBy: UITextView!
+    @IBOutlet weak var definitionPoweredBy: UITextView!    
+    @IBOutlet weak var dumbBirdImage: UIImageView!
     
-    var currentWord: String = ""
     var allowedWords: Set<String> = []
+    var currentWord: String = ""
     
     let NO_NETWORK_ERROR_MESSAGE = "Definition requires internet connection"
     let NO_DEFINITION_ERROR_MESSAGE = "No definition found"
     let OXFORD_DICTIONARIES_TAGLINE = "Powered by Oxford Dictionaries"
 
     //MARK: Colors
+
     let flatRed = UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1)
     let flatGreen = UIColor(red: 39/255, green: 174/255, blue: 96/255, alpha: 1)
+    
+    //MARK: Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchText.delegate = self
 
         allowedWords = loadDictionary(fileName: "twl2014")
+    
+        // Let bird image be tappable to open "About" dialog
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        dumbBirdImage.isUserInteractionEnabled = true
+        dumbBirdImage.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    /// Handle tap on dumb bird image to launch "About" dialog
+    @objc func imageTapped()
+    {
+        let myAlert = UIAlertController(title: "About", message: "This app is dedicated to my grandmother, Marijke Robbins, who immigrated to the United States from Holland as a teenager. She learned to play Scrabble to help improve her English vocabulary, and playing the game became a favorite pasttime of our whole family. True to her original goal of growing vocabulary, our house rules are that we are allowed to look up words in the dictionary so long as we can provide the definition on command. \n\n This app uses the TWL 2014 word list.", preferredStyle: .alert)
+        myAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(myAlert, animated: true, completion: nil)
     }
     
     // Hide keyboard if user taps anywhere
@@ -59,8 +77,6 @@ class ViewController: UIViewController, UISearchBarDelegate {
     }
     
     //MARK: Helper functions
-    
-    //
     private func checkWordAndUpdateDisplay(word: String) {
         resetResultDisplay()
         searchDisplayText.text = word
@@ -79,9 +95,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
         }
     }
     
-    /**
-     Resets all display text to blank
-    */
+    /// Resets all display text to blank
     private func resetResultDisplay() {
         isText.text = ""
         decisionText.text = ""

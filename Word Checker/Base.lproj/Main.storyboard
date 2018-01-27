@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,7 +19,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PaU-oa-DuG">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
-                                <color key="backgroundColor" red="0.086274509799999996" green="0.62745098040000002" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.23137254900000001" green="0.23137254900000001" blue="0.23137254900000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="ybM-wK-ZF6"/>
                                 </constraints>
@@ -31,15 +30,16 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="mMh-dk-c2P"/>
                                 </constraints>
-                                <color key="barTintColor" red="0.086274509803921567" green="0.62745098039215685" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" red="0.23137254901960785" green="0.23137254901960785" blue="0.23137254901960785" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
-                                    <navigationItem title="Robbins' Word Checker" id="h9l-vX-Agm"/>
+                                    <navigationItem title="Robbins' Word Check" id="h9l-vX-Agm"/>
                                 </items>
                             </navigationBar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="robin transparent" translatesAutoresizingMaskIntoConstraints="NO" id="ez5-KU-VIB">
-                                <rect key="frame" x="0.0" y="20" width="44" height="44"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dumb bird icon wide 120p" translatesAutoresizingMaskIntoConstraints="NO" id="hzl-iS-8Gl">
+                                <rect key="frame" x="0.0" y="20" width="49" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="ez5-KU-VIB" secondAttribute="height" multiplier="1:1" id="1wa-QP-xJG"/>
+                                    <constraint firstAttribute="height" constant="44" id="b4I-OH-fVY"/>
+                                    <constraint firstAttribute="width" constant="49" id="cua-mf-4qK"/>
                                 </constraints>
                             </imageView>
                             <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="Search for your word" translatesAutoresizingMaskIntoConstraints="NO" id="eZd-7F-I6z">
@@ -122,16 +122,16 @@
                             <constraint firstItem="nAa-z1-5Ry" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="1CP-aP-sq6"/>
                             <constraint firstItem="DZY-na-TgK" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="1Ey-SE-Igf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nAa-z1-5Ry" secondAttribute="trailing" constant="20" id="1GT-hE-t0a"/>
-                            <constraint firstItem="ez5-KU-VIB" firstAttribute="top" secondItem="PaU-oa-DuG" secondAttribute="bottom" id="9oq-8P-Hgt"/>
                             <constraint firstItem="DZY-na-TgK" firstAttribute="top" secondItem="PaU-oa-DuG" secondAttribute="bottom" id="A4H-lG-40F"/>
                             <constraint firstItem="eZd-7F-I6z" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Aam-ZB-3g4"/>
                             <constraint firstItem="BCY-GT-0pc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Fdt-M9-OcJ"/>
                             <constraint firstItem="BCY-GT-0pc" firstAttribute="top" secondItem="eZd-7F-I6z" secondAttribute="bottom" constant="30" id="G2T-uz-EOP"/>
                             <constraint firstAttribute="trailing" secondItem="PaU-oa-DuG" secondAttribute="trailing" id="HAh-3x-kai"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="nAa-z1-5Ry" secondAttribute="bottom" id="IH6-vF-cRj"/>
-                            <constraint firstItem="DZY-na-TgK" firstAttribute="baseline" secondItem="ez5-KU-VIB" secondAttribute="bottom" id="PNZ-Vx-VmU"/>
-                            <constraint firstItem="ez5-KU-VIB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Pxj-Jv-6m4"/>
+                            <constraint firstItem="eZd-7F-I6z" firstAttribute="top" secondItem="hzl-iS-8Gl" secondAttribute="bottom" id="Iz9-c6-6jb"/>
                             <constraint firstItem="DZY-na-TgK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="bdT-ba-oZe"/>
+                            <constraint firstItem="hzl-iS-8Gl" firstAttribute="top" secondItem="PaU-oa-DuG" secondAttribute="bottom" id="blg-EZ-icd"/>
+                            <constraint firstItem="hzl-iS-8Gl" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cGH-Io-vjJ"/>
                             <constraint firstItem="nAa-z1-5Ry" firstAttribute="top" secondItem="BCY-GT-0pc" secondAttribute="bottom" constant="20" id="eP4-IY-MCr"/>
                             <constraint firstItem="PaU-oa-DuG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="iSn-w2-j5a"/>
                             <constraint firstItem="DZY-na-TgK" firstAttribute="bottom" secondItem="eZd-7F-I6z" secondAttribute="top" id="jGr-jP-UM8"/>
@@ -146,6 +146,7 @@
                         <outlet property="definitionLabel" destination="1Wl-Tl-C3F" id="w8W-HY-Npz"/>
                         <outlet property="definitionPoweredBy" destination="1RZ-sj-jxF" id="VHb-A8-Mlo"/>
                         <outlet property="definitionText" destination="E2f-hC-Izk" id="mug-6g-fsR"/>
+                        <outlet property="dumbBirdImage" destination="hzl-iS-8Gl" id="U7m-Iz-jwh"/>
                         <outlet property="isText" destination="bE0-NQ-hXd" id="iKn-52-myq"/>
                         <outlet property="searchDisplayText" destination="rlS-PJ-Imh" id="E7S-bT-DNr"/>
                         <outlet property="searchText" destination="eZd-7F-I6z" id="I3B-ls-2CX"/>
@@ -157,6 +158,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="robin transparent" width="510" height="510"/>
+        <image name="Dumb bird icon wide 120p" width="134" height="120"/>
     </resources>
 </document>
