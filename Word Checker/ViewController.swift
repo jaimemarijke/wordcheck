@@ -24,6 +24,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
     var allowedWords: Set<String> = []
     var currentWord: String = ""
     
+    let wordListName = "enable"
+    
     let NO_NETWORK_ERROR_MESSAGE = "Definition requires internet connection"
     let NO_DEFINITION_ERROR_MESSAGE = "No definition found"
     let OXFORD_DICTIONARIES_TAGLINE = "Powered by Oxford Dictionaries"
@@ -39,7 +41,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         searchText.delegate = self
 
-        allowedWords = loadDictionary(fileName: "twl2014")
+        allowedWords = loadWordList(fileName: wordListName)
     
         // Let bird image be tappable to open "About" dialog
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
@@ -50,9 +52,9 @@ class ViewController: UIViewController, UISearchBarDelegate {
     /// Handle tap on dumb bird image to launch "About" dialog
     @objc func imageTapped()
     {
-        let myAlert = UIAlertController(title: "About", message: "This app is dedicated to my grandmother, Marijke Robbins, who immigrated to the United States from Holland as a teenager. She learned to play Scrabble to help improve her English vocabulary, and playing the game became a favorite pasttime of our whole family. True to her original goal of growing vocabulary, our house rules are that we are allowed to look up words in the dictionary so long as we can provide the definition on command. \n\n This app uses the TWL 2014 word list.", preferredStyle: .alert)
-        myAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(myAlert, animated: true, completion: nil)
+        let aboutMessage = UIAlertController(title: "About", message: "This app is dedicated to my grandmother, Marijke Robbins, who immigrated to the United States from Holland as a teenager. She learned to play Scrabble to help improve her English vocabulary, and playing the game became a favorite pasttime of our whole family. True to her original goal of growing vocabulary, our house rules specify that we are allowed to look up words in the dictionary so long as we can provide the definition on command. \n\n This app uses the \(wordListName.uppercased()) word list.", preferredStyle: .alert)
+        aboutMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(aboutMessage, animated: true, completion: nil)
     }
     
     // Hide keyboard if user taps anywhere
@@ -85,7 +87,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
             return
         }
 
-        else if (allowedWords.contains(word.uppercased())) {
+        else if (allowedWords.contains(word.lowercased())) {
             markGood()
             showDefinition(word: word)
         }
@@ -132,12 +134,12 @@ class ViewController: UIViewController, UISearchBarDelegate {
         if NetworkReachabilityManager()!.isReachable == true {
             definitionText.text = "Searching for definition..."
 
-            lookupDefinition(word: word, definitionFound: { wordDefinitionResult in
+            lookupDefinitionWordsAPI(word: word, definitionFound: { wordDefinitionResult in
                 
                 // Handles case where API response returns after the word has already changed
                 if word == self.currentWord {
                     self.showDefinitionLabel()
-                    self.definitionText.text = self.formatWordDefinition(wordDefinitionResult: wordDefinitionResult)
+                    self.definitionText.text = self.formatDefinitionEntries(wordDefinitionEntries: wordDefinitionResult)
                 }
             })
         }
@@ -259,34 +261,102 @@ class ViewController: UIViewController, UISearchBarDelegate {
         task.resume()
     }
     
+    //MARK: Words API
+    
     /**
-     Loads a dictionary of words to use to determine if a word is GOOD or BAD.
+     For Words API
+     Parses the word definition result from the Oxford Dictionaries into a formatted string, grouped by lexical entries, in the form:
+     ```
+     (<Part of speech>)
+     1. <Definition>
+     2. <Definition>
+     
+     (<Part of speech>)
+     1. <Definition>
+     ```
      
      - Parameters:
-     - fileName: The filename of the dictionary. Options: ["sowpods", "twl2014"]
+     - wordDefinitionResult: The first "result" entry for the word definition response
+     
+     - Returns: Formatted string definition
      */
-    private func loadDictionary(fileName: String) -> Set<String> {
-        var contents: String
-        var allowedWords: Set<String> = []
+    private func formatDefinitionEntries(wordDefinitionEntries: [[String: Any]]) -> String {
+        var formattedDefinitions: [String] = []
         
-        if let filepath = Bundle.main.path(forResource: fileName, ofType: "txt") {
-            do {
-                contents = try String(contentsOfFile: filepath, encoding: String.Encoding.utf8)
-            } catch {
-                print("Error loading '\(fileName).txt'")
-                contents = ""
+        print("word definition entries: \(wordDefinitionEntries)")
+        
+        if wordDefinitionEntries.count == 0 {
+            return NO_DEFINITION_ERROR_MESSAGE
+        }
+
+        for (index, entry) in wordDefinitionEntries.enumerated() {
+            let formattedDefinition = formatDefinitionEntry(entry: entry)
+            
+            if formattedDefinition != nil {
+                formattedDefinitions.append("\(index + 1). \(formattedDefinition!)")
             }
         }
-        else {
-            print("'\(fileName).txt' file not found!")
-            contents = ""
+            
+        return formattedDefinitions.joined(separator: "\n")
+    }
+
+    /**
+     For Words API
+
+     Parses a single definition result for a word into a formatted string including part of speech and list of definitions
+     
+     - Parameters:
+     - entry: A single definition entry for a word
+     
+     - Returns: Formatted string definition
+     */
+    private func formatDefinitionEntry(entry: [String: Any]) -> String? {
+        let partOfSpeech = entry["partOfSpeech"] as? String
+        let definition = entry["definition"] as? String
+        
+        // Only format an entry if there are actually definitions
+        if definition != nil {
+            return "(\(partOfSpeech!)). \(definition!)"
         }
         
-        allowedWords = Set(contents.components(separatedBy: "\n"))
-        allowedWords.remove("")
-        print("Using \(fileName) dictionary: \(allowedWords.count) allowed words")
+        return nil
+    }
+    
+    /**
+     Looks up definition for a word in the Words API
+     
+     - Parameters:
+     - word: The word to look up
+     - definitionFound: a callback which passes through the word definition found
+     */
+    private func lookupDefinitionWordsAPI(word: String, definitionFound: @escaping ((_ wordDefinitionResult: [[String: Any]]) -> Void)) {
+        let url = URL(string: "https://wordsapiv1.p.mashape.com/words/\(word.lowercased())")!
         
-        return allowedWords
+        var request = URLRequest(url: url)
+        request.setValue("CNobznHBT4mshurXH1ATPdbNpmxAp1mFZ38jsnFy5Fmz7NssgR", forHTTPHeaderField: "X-Mashape-Key")
+        request.setValue("wordsapiv1.p.mashape.com", forHTTPHeaderField: "X-Mashape-Host")
+        
+        let configuration = URLSessionConfiguration.ephemeral
+        let session = URLSession(configuration: configuration, delegate: nil, delegateQueue: OperationQueue.main)
+        let task = session.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
+            do {
+                if let data = data,
+                    let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                    let results = json["results"] as? [[String: Any]] {
+                    
+                    definitionFound(results)
+                }
+                else {
+                    print("No result found")
+                    definitionFound([])
+                }
+            } catch {
+                print("Error deserializing JSON: \(error)")
+                definitionFound([])
+            }
+        })
+        
+        task.resume()
     }
 }
 
