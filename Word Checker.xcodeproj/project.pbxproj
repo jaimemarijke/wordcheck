@@ -19,6 +19,7 @@
 		6FF8D5352020F619001EB405 /* twl2014.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6FF8D5342020F619001EB405 /* twl2014.txt */; };
 		6FF8D5392020FAF2001EB405 /* enable.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6FF8D5382020FAF2001EB405 /* enable.txt */; };
 		6FF8D53B2020FB8B001EB405 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF8D53A2020FB8B001EB405 /* Dictionary.swift */; };
+		6FF8D53D2020FDBC001EB405 /* Definitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF8D53C2020FDBC001EB405 /* Definitions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		6FF8D5342020F619001EB405 /* twl2014.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = twl2014.txt; path = ../../../Downloads/twl2014.txt; sourceTree = "<group>"; };
 		6FF8D5382020FAF2001EB405 /* enable.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = enable.txt; path = ../../../Downloads/enable.txt; sourceTree = "<group>"; };
 		6FF8D53A2020FB8B001EB405 /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
+		6FF8D53C2020FDBC001EB405 /* Definitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Definitions.swift; sourceTree = "<group>"; };
 		9F98A814E2153945216CA4B2 /* Pods-Word Checker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Word Checker.release.xcconfig"; path = "Pods/Target Support Files/Pods-Word Checker/Pods-Word Checker.release.xcconfig"; sourceTree = "<group>"; };
 		F0A1381684E135736F80703A /* Pods_Word_Checker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Word_Checker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -110,6 +112,7 @@
 				6FF8D5382020FAF2001EB405 /* enable.txt */,
 				6FBA7ACE2014050D009F1E0C /* AppDelegate.swift */,
 				6FBA7AD02014050D009F1E0C /* ViewController.swift */,
+				6FF8D53C2020FDBC001EB405 /* Definitions.swift */,
 				6FF8D53A2020FB8B001EB405 /* Dictionary.swift */,
 				6FBA7AD22014050D009F1E0C /* Main.storyboard */,
 				6FBA7AD72014050D009F1E0C /* LaunchScreen.storyboard */,
@@ -301,6 +304,7 @@
 			files = (
 				6FBA7AD12014050D009F1E0C /* ViewController.swift in Sources */,
 				6FBA7ACF2014050D009F1E0C /* AppDelegate.swift in Sources */,
+				6FF8D53D2020FDBC001EB405 /* Definitions.swift in Sources */,
 				6FF8D53B2020FB8B001EB405 /* Dictionary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
