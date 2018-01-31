@@ -7,98 +7,127 @@
 //
 
 import Foundation
+import Alamofire
 
-/**
- For Words API
- Parses the word definition result from the Oxford Dictionaries into a formatted string, grouped by lexical entries, in the form:
- ```
- 1. (<Part of speech>). <Definition>
- 2. (<Part of speech>). <Definition>
- ```
- 
- - Parameters:
- - wordDefinitionEntries: The first "result" entry for the word definition response
- 
- - Returns: Formatted string definition
- */
-func formatDefinitionEntries(wordDefinitionEntries: [[String: Any]]) -> String {
-    var formattedDefinitions: [String] = []
+class DefinitionEntry {
+    var word, definition: String
+    var partOfSpeech: String?
     
-    print("word definition entries: \(wordDefinitionEntries)")
-    
-    if wordDefinitionEntries.count == 0 {
+    init(word: String, definition: String, partOfSpeech: String? = nil) {
+        self.word = word
+        self.definition = definition
+        self.partOfSpeech = partOfSpeech
+    }
+}
+
+func formatDefinitions(definitionEntries: [DefinitionEntry]) -> String {
+    if definitionEntries.count == 0 {
         return NO_DEFINITION_ERROR_MESSAGE
     }
     
-    for (index, entry) in wordDefinitionEntries.enumerated() {
-        let formattedDefinition = formatDefinitionEntry(entry: entry)
-        
-        if formattedDefinition != nil {
-            formattedDefinitions.append("\(index + 1). \(formattedDefinition!)")
-        }
+    var formattedDefinitions: [String] = []
+    
+    // Enumerate a list of definitions, formatted with part of speech
+    for (index, entry) in definitionEntries.enumerated() {
+        formattedDefinitions.append("\(index + 1). (\(entry.partOfSpeech!)). \(entry.definition)")
     }
     
     return formattedDefinitions.joined(separator: "\n")
 }
 
-/**
- For Words API
- 
- Parses a single definition result for a word into a formatted string including part of speech and list of definitions
- 
- - Parameters:
- - entry: A single definition entry for a word
- 
- - Returns: Formatted string definition
- */
-func formatDefinitionEntry(entry: [String: Any]) -> String? {
-    let partOfSpeech = entry["partOfSpeech"] as? String
-    let definition = entry["definition"] as? String
-    
-    // Only format an entry if there are actually definitions
-    if definition != nil {
-        return "(\(partOfSpeech!)). \(definition!)"
+func lookupDefinition(word: String, api: String = "wordnik", completion: @escaping ((_ definitionEntries: [DefinitionEntry]) -> Void)) {
+    if api == "wordsapi" {
+        return lookupDefinitionWordsAPI(word: word, completion: completion)
     }
     
-    return nil
+    else {
+        return lookupDefinitionWordNik(word: word, completion: completion)
+    }
 }
 
-/**
- Looks up definition for a word in the Words API
- 
- - Parameters:
- - word: The word to look up
- - definitionFound: a callback which passes through the word definition found
- */
-func lookupDefinitionWordsAPI(word: String, definitionFound: @escaping ((_ wordDefinitionResult: [[String: Any]]) -> Void)) {
-    let url = URL(string: "https://wordsapiv1.p.mashape.com/words/\(word.lowercased())")!
-    
-    var request = URLRequest(url: url)
-    request.setValue("CNobznHBT4mshurXH1ATPdbNpmxAp1mFZ38jsnFy5Fmz7NssgR", forHTTPHeaderField: "X-Mashape-Key")
-    request.setValue("wordsapiv1.p.mashape.com", forHTTPHeaderField: "X-Mashape-Host")
-    
-    let configuration = URLSessionConfiguration.ephemeral
-    let session = URLSession(configuration: configuration, delegate: nil, delegateQueue: OperationQueue.main)
-    let task = session.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
-        do {
-            if let data = data,
-                let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                let results = json["results"] as? [[String: Any]] {
-                
-                definitionFound(results)
-            }
-            else {
-                print("No result found")
-                definitionFound([])
-            }
-        } catch {
-            print("Error deserializing JSON: \(error)")
-            definitionFound([])
-        }
-    })
-    
-    task.resume()
+enum APIError: Error {
+    case unknown
 }
+
+
+func lookupDefinitionWordNik(word: String, completion: @escaping ((_ definitionEntries: [DefinitionEntry]) -> Void)) {
+    print("Querying WordNik for \(word) definition")
+    
+    let headers: HTTPHeaders = [
+        "api_key": "be130b7e0da73d978500700212f0c86fd1ebb7668b8a99a1e",
+    ]
+    
+    Alamofire.request(
+        URL(string: "http://api.wordnik.com:80/v4/word.json/\(word.lowercased())/definitions?limit=10")!,
+        method: .get,
+        headers: headers)
+        .validate()
+        .responseJSON { (response) -> Void in
+            guard response.result.isSuccess else {
+                print("Error while fetching definitions: \(response.result.error ?? APIError.unknown)")
+                completion([])
+                return
+            }
+            
+            guard let json = response.result.value as? [[String: Any]] else {
+                print("Malformed data received from WordNik service: \(response.result.error ?? APIError.unknown)")
+                completion([])
+                return
+            }
+            
+            let definitionEntries = json.map({
+                result in DefinitionEntry(word: word, definition: result["text"] as! String, partOfSpeech: result["partOfSpeech"] as? String)
+            })
+            
+            completion(definitionEntries)
+    }
+}
+
+func lookupDefinitionWordsAPI(word: String, completion: @escaping ((_ definitionEntries: [DefinitionEntry]) -> Void)) {
+    print("Querying Words API for \(word) definition")
+    
+    let headers: HTTPHeaders = [
+        "X-Mashape-Key": "CNobznHBT4mshurXH1ATPdbNpmxAp1mFZ38jsnFy5Fmz7NssgR",
+        "X-Mashape-Host": "wordsapiv1.p.mashape.com"
+    ]
+    
+    Alamofire.request(
+        URL(string: "https://wordsapiv1.p.mashape.com/words/\(word.lowercased())")!,
+        method: .get,
+        headers: headers)
+        .validate()
+        .responseJSON { (response) -> Void in
+            guard response.result.isSuccess else {
+                print("Error while fetching definitions: \(response.result.error ?? APIError.unknown)")
+                completion([])
+                return
+            }
+            
+            guard let json = response.result.value as? [String: Any] else {
+                print("Malformed data received from Words API service: \(response.result.error ?? APIError.unknown)")
+                print("Response: \(response)")
+                completion([])
+                return
+            }
+            
+            guard let results = json["results"] as? [[String: Any]] else {
+                print("No definitions found. Response: \(response)")
+                completion([])
+                return
+            }
+            
+            let definitionEntries = results.map({
+                result in DefinitionEntry(word: word, definition: result["definition"] as! String, partOfSpeech: result["partOfSpeech"] as? String)
+            })
+            
+            completion(definitionEntries)
+    }
+}
+
+
+//////////////////
+//////////////////
+
 
 /**
  Parses the word definition result from the Oxford Dictionaries into a formatted string, grouped by lexical entries, in the form:
@@ -183,9 +212,9 @@ func formatLexicalEntry(lexicalEntry: [String:Any]) -> String? {
  
  - Parameters:
  - word: The word to look up
- - definitionFound: a callback which passes through the word definition found
+ - completion: a callback which passes through the word definition found
  */
-func lookupDefinition(word: String, definitionFound: @escaping ((_ wordDefinitionResult: [String: Any]) -> Void)) {
+func lookupDefinitionOxfordDictionaries(word: String, completion: @escaping ((_ wordDefinitionResult: [String: Any]) -> Void)) {
     let url = URL(string: "https://od-api.oxforddictionaries.com/api/v1/entries/en/\(word.lowercased())")!
     
     var request = URLRequest(url: url)
@@ -201,7 +230,7 @@ func lookupDefinition(word: String, definitionFound: @escaping ((_ wordDefinitio
                 let results = json["results"] as? [[String: Any]] {
                 
                 let result = results[0] // I'm not sure what more than one results entry would mean anyway
-                definitionFound(result)
+                completion(result)
             }
         } catch {
             print("Error deserializing JSON: \(error)")

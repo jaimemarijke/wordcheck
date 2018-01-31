@@ -79,6 +79,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
     }
     
     //MARK: Helper functions
+
     private func checkWordAndUpdateDisplay(word: String) {
         resetResultDisplay()
         searchDisplayText.text = word
@@ -124,8 +125,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
     
     /// Show the "Definition" and "Oxford Dictionaries" labels
     private func showDefinitionLabel() {
-        definitionLabel.text = "Definition"
-        definitionPoweredBy.text = OXFORD_DICTIONARIES_TAGLINE
+        definitionLabel.text = "Definitions"
+        definitionPoweredBy.text = "Powered by WordNik"
     }
     
     /// Look up and display word definition
@@ -134,12 +135,11 @@ class ViewController: UIViewController, UISearchBarDelegate {
         if NetworkReachabilityManager()!.isReachable == true {
             definitionText.text = "Searching for definition..."
 
-            lookupDefinitionWordsAPI(word: word, definitionFound: { wordDefinitionResult in
-                
-                // Handles case where API response returns after the word has already changed
+            lookupDefinition(word: word, api: "wordnik", completion: { definitionEntries in
+                // Don't show definition if API response returns after the word has already changed
                 if word == self.currentWord {
                     self.showDefinitionLabel()
-                    self.definitionText.text = formatDefinitionEntries(wordDefinitionEntries: wordDefinitionResult)
+                    self.definitionText.text = formatDefinitions(definitionEntries: definitionEntries)
                 }
             })
         }
