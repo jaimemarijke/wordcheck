@@ -22,8 +22,10 @@ class ViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var isText: UILabel!
     @IBOutlet weak var definitionText: UITextView!
     @IBOutlet weak var definitionLabel: UITextView!
-    @IBOutlet weak var definitionPoweredBy: UITextView!    
+//    @IBOutlet weak var definitionPoweredBy: UITextView!
+    @IBOutlet weak var poweredBy: UIImageView!
     @IBOutlet weak var dumbBirdImage: UIImageView!
+    
     
     var allowedWords: Set<String> = []
     var currentWord: String = ""
@@ -104,7 +106,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
         decisionText.text = ""
 
         definitionLabel.text = ""
-        definitionPoweredBy.text = ""
+        // definitionPoweredBy.text = ""
+        poweredBy.isHidden = true
         definitionText.text = ""
     }
     
@@ -126,7 +129,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
     /// Show the "Definition" and "Oxford Dictionaries" labels
     private func showDefinitionLabel() {
         definitionLabel.text = "Definitions"
-        definitionPoweredBy.text = "Powered by WordNik"
+        // definitionPoweredBy.text = "Powered by WordNik"
+        poweredBy.isHidden = false
     }
     
     /// Look up and display word definition
