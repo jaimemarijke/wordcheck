@@ -135,7 +135,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
         if NetworkReachabilityManager()!.isReachable == true {
             definitionText.text = "Searching for definition..."
 
-            lookupDefinition(word: word, api: "wordnik", completion: { definitionEntries in
+            lookupDefinition(word: word, api: "oxford", completion: { definitionEntries in
                 // Don't show definition if API response returns after the word has already changed
                 if word == self.currentWord {
                     self.showDefinitionLabel()
