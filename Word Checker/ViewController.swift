@@ -9,9 +9,10 @@
 import UIKit
 import Alamofire
 
-let NO_NETWORK_ERROR_MESSAGE = "Definition requires internet connection"
-let NO_DEFINITION_ERROR_MESSAGE = "No definition found"
-let OXFORD_DICTIONARIES_TAGLINE = "Powered by Oxford Dictionaries"
+let NO_NETWORK_ERROR_MESSAGE = "Definitions require internet connection"
+let NO_DEFINITION_ERROR_MESSAGE = "No definitions found"
+let WORD_LIST_NAME = "enable"
+
 
 class ViewController: UIViewController, UISearchBarDelegate {
     //MARK: Properties
@@ -22,15 +23,11 @@ class ViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var isText: UILabel!
     @IBOutlet weak var definitionText: UITextView!
     @IBOutlet weak var definitionLabel: UITextView!
-//    @IBOutlet weak var definitionPoweredBy: UITextView!
     @IBOutlet weak var poweredBy: UIImageView!
     @IBOutlet weak var dumbBirdImage: UIImageView!
     
-    
     var allowedWords: Set<String> = []
     var currentWord: String = ""
-    
-    let wordListName = "enable"
 
     //MARK: Colors
 
@@ -43,7 +40,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         searchText.delegate = self
 
-        allowedWords = loadWordList(fileName: wordListName)
+        allowedWords = loadWordList(fileName: WORD_LIST_NAME)
     
         // Let bird image be tappable to open "About" dialog
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
@@ -54,7 +51,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
     /// Handle tap on dumb bird image to launch "About" dialog
     @objc func imageTapped()
     {
-        let aboutMessage = UIAlertController(title: "About", message: "This app is dedicated to my grandmother, M. Robbins, who immigrated to the United States from Holland as a teenager. She learned to play Scrabble to help improve her English vocabulary, and playing the game became a favorite pasttime of our whole family. True to her original goal of growing vocabulary, our house rules specify that we are allowed to look up words in the dictionary so long as we can provide the definition on command. \n\n This app uses the \(wordListName.uppercased()) word list.", preferredStyle: .alert)
+        let aboutMessage = UIAlertController(title: "About", message: "This app is dedicated to my grandmother, M. Robbins, who immigrated to the United States from Holland as a teenager. She learned to play Scrabble to help improve her English vocabulary, and playing the game became a favorite pasttime of our whole family. True to her original goal of growing vocabulary, our house rules specify that we are allowed to look up words in the dictionary so long as we can provide the definition on command. \n\n This app uses the \(WORD_LIST_NAME.uppercased()) word list.", preferredStyle: .alert)
         aboutMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(aboutMessage, animated: true, completion: nil)
     }
@@ -106,7 +103,6 @@ class ViewController: UIViewController, UISearchBarDelegate {
         decisionText.text = ""
 
         definitionLabel.text = ""
-        // definitionPoweredBy.text = ""
         poweredBy.isHidden = true
         definitionText.text = ""
     }
@@ -129,7 +125,6 @@ class ViewController: UIViewController, UISearchBarDelegate {
     /// Show the "Definition" and "Oxford Dictionaries" labels
     private func showDefinitionLabel() {
         definitionLabel.text = "Definitions"
-        // definitionPoweredBy.text = "Powered by WordNik"
         poweredBy.isHidden = false
     }
     
@@ -137,12 +132,12 @@ class ViewController: UIViewController, UISearchBarDelegate {
     private func showDefinition(word: String) {
         // Only perform search if there's an internet connection
         if NetworkReachabilityManager()!.isReachable == true {
+            self.showDefinitionLabel()
             definitionText.text = "Searching for definition..."
 
             lookupDefinition(word: word, api: "wordnik", completion: { definitionEntries in
                 // Don't show definition if API response returns after the word has already changed
                 if word == self.currentWord {
-                    self.showDefinitionLabel()
                     self.definitionText.text = formatDefinitions(definitionEntries: definitionEntries)
                 }
             })
