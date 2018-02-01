@@ -27,15 +27,13 @@ func valueForAPIKey(api: String, keyname:String) -> String {
     // Credit to the original source for this technique at
     // http://blog.lazerwalker.com/blog/2014/05/14/handling-private-api-keys-in-open-source-ios-apps
     let filePath = Bundle.main.path(forResource: "APIKeys", ofType: "plist")
-
     let apis = NSDictionary(contentsOfFile: filePath!)
     
-    print("apis: \(apis)")
     if let apiKeys = apis?[api] as? [String: Any], let key = apiKeys[keyname] as? String {
-        print("key: \(key)")
         return key
     }
     
+    print("Failed to find api '\(api)' key '\(keyname)' in file: \(apis!)")
     return ""
 }
 
