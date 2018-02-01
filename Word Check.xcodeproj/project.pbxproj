@@ -43,7 +43,7 @@
 		6FBA7ADF2014050D009F1E0C /* Word CheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Word CheckTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FBA7AE32014050D009F1E0C /* Word_CheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word_CheckerTests.swift; sourceTree = "<group>"; };
 		6FBA7AE52014050D009F1E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6FE69AF620155EAA00D47A16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../Assets.xcassets; sourceTree = "<group>"; };
+		6FE69AF620155EAA00D47A16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6FEB9165201429BF00F814E8 /* minisowpods.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = minisowpods.txt; path = ../../../Downloads/minisowpods.txt; sourceTree = "<group>"; };
 		6FF8D5322020F5FF001EB405 /* sowpods.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = sowpods.txt; path = ../../../Downloads/sowpods.txt; sourceTree = "<group>"; };
 		6FF8D5342020F619001EB405 /* twl2014.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = twl2014.txt; path = ../../../Downloads/twl2014.txt; sourceTree = "<group>"; };
