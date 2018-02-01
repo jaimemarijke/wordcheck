@@ -7,9 +7,9 @@
 //
 
 import XCTest
-@testable import Word_Checker
+@testable import Word_Check
 
-class Word_CheckerTests: XCTestCase {
+class Word_CheckTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

@@ -13,7 +13,7 @@
 		6FBA7AD12014050D009F1E0C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA7AD02014050D009F1E0C /* ViewController.swift */; };
 		6FBA7AD42014050D009F1E0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FBA7AD22014050D009F1E0C /* Main.storyboard */; };
 		6FBA7AD92014050D009F1E0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FBA7AD72014050D009F1E0C /* LaunchScreen.storyboard */; };
-		6FBA7AE42014050D009F1E0C /* Word_CheckerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA7AE32014050D009F1E0C /* Word_CheckerTests.swift */; };
+		6FBA7AE42014050D009F1E0C /* Word_CheckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA7AE32014050D009F1E0C /* Word_CheckTests.swift */; };
 		6FE69AF720155EAA00D47A16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FE69AF620155EAA00D47A16 /* Assets.xcassets */; };
 		6FEB9166201429BF00F814E8 /* minisowpods.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6FEB9165201429BF00F814E8 /* minisowpods.txt */; };
 		6FF8D5332020F5FF001EB405 /* sowpods.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6FF8D5322020F5FF001EB405 /* sowpods.txt */; };
@@ -43,7 +43,7 @@
 		6FBA7AD82014050D009F1E0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6FBA7ADA2014050D009F1E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6FBA7ADF2014050D009F1E0C /* Word CheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Word CheckTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6FBA7AE32014050D009F1E0C /* Word_CheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word_CheckerTests.swift; sourceTree = "<group>"; };
+		6FBA7AE32014050D009F1E0C /* Word_CheckTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word_CheckTests.swift; sourceTree = "<group>"; };
 		6FBA7AE52014050D009F1E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6FE69AF620155EAA00D47A16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6FEB9165201429BF00F814E8 /* minisowpods.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = minisowpods.txt; path = ../../../Downloads/minisowpods.txt; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 		6FBA7AE22014050D009F1E0C /* Word CheckTests */ = {
 			isa = PBXGroup;
 			children = (
-				6FBA7AE32014050D009F1E0C /* Word_CheckerTests.swift */,
+				6FBA7AE32014050D009F1E0C /* Word_CheckTests.swift */,
 				6FBA7AE52014050D009F1E0C /* Info.plist */,
 			);
 			path = "Word CheckTests";
@@ -317,7 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FBA7AE42014050D009F1E0C /* Word_CheckerTests.swift in Sources */,
+				6FBA7AE42014050D009F1E0C /* Word_CheckTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
