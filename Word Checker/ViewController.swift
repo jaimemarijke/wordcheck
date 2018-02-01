@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SafariServices
 
 let NO_NETWORK_ERROR_MESSAGE = "Definitions require internet connection"
 let NO_DEFINITION_ERROR_MESSAGE = "No definitions found"
@@ -43,17 +44,34 @@ class ViewController: UIViewController, UISearchBarDelegate {
         allowedWords = loadWordList(fileName: WORD_LIST_NAME)
     
         // Let bird image be tappable to open "About" dialog
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
+        let birdTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(birdImageTapped))
         dumbBirdImage.isUserInteractionEnabled = true
-        dumbBirdImage.addGestureRecognizer(tapGestureRecognizer)
+        dumbBirdImage.addGestureRecognizer(birdTapGestureRecognizer)
+        
+        // Let "Powered by WordNik" be tappable to open word definition
+        let poweredByTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(wordNikImageTapped))
+        poweredBy.isUserInteractionEnabled = true
+        poweredBy.addGestureRecognizer(poweredByTapGestureRecognizer)
     }
     
     /// Handle tap on dumb bird image to launch "About" dialog
-    @objc func imageTapped()
+    @objc func birdImageTapped()
     {
         let aboutMessage = UIAlertController(title: "About", message: "This app is dedicated to my grandmother, M. Robbins, who immigrated to the United States from Holland as a teenager. She learned to play Scrabble to help improve her English vocabulary, and playing the game became a favorite pasttime of our whole family. True to her original goal of growing vocabulary, our house rules specify that we are allowed to look up words in the dictionary so long as we can provide the definition on command. \n\n This app uses the \(WORD_LIST_NAME.uppercased()) word list.", preferredStyle: .alert)
         aboutMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(aboutMessage, animated: true, completion: nil)
+    }
+
+    /// Handle tap on "Powered by WordNik" logo to open word definition in Safari
+    @objc func wordNikImageTapped()
+    {
+        print("image tapped")
+        openUrlInSafari(urlString: "http://www.wordnik.com/words/\(currentWord)")
+    }
+    
+    func openUrlInSafari(urlString: String) {
+        let svc = SFSafariViewController(url: URL(string: urlString)!)
+        present(svc, animated: true, completion: nil)
     }
     
     // Hide keyboard if user taps anywhere
@@ -73,15 +91,15 @@ class ViewController: UIViewController, UISearchBarDelegate {
     
     // Perform search on every charater typed
     func searchBar(_: UISearchBar, textDidChange searchText: String) {
-        currentWord = searchText
-        checkWordAndUpdateDisplay(word: searchText)
+        currentWord = searchText.lowercased()
+        checkWordAndUpdateDisplay(word: currentWord)
     }
     
     //MARK: Helper functions
 
     private func checkWordAndUpdateDisplay(word: String) {
         resetResultDisplay()
-        searchDisplayText.text = word
+        searchDisplayText.text = word.uppercased()
         
         if word == "" {
             return

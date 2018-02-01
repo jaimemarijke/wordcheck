@@ -103,7 +103,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             </textView>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Powered by Wordnik - big596x64" translatesAutoresizingMaskIntoConstraints="NO" id="07m-Fb-vPG">
-                                <rect key="frame" x="30" y="303" width="168" height="18"/>
+                                <rect key="frame" x="27" y="303" width="168" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="168" id="9uX-lw-p2A"/>
                                     <constraint firstAttribute="height" constant="18" id="Oa8-8S-wEa"/>
@@ -133,7 +133,7 @@
                             <constraint firstItem="E2f-hC-Izk" firstAttribute="top" secondItem="07m-Fb-vPG" secondAttribute="bottom" constant="5" id="pz1-6C-XS3"/>
                             <constraint firstItem="PaU-oa-DuG" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="qr6-ek-9H4"/>
                             <constraint firstItem="eZd-7F-I6z" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="sec-Qz-IVy"/>
-                            <constraint firstItem="07m-Fb-vPG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="t0C-OK-r5w"/>
+                            <constraint firstItem="07m-Fb-vPG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="27" id="t0C-OK-r5w"/>
                             <constraint firstItem="07m-Fb-vPG" firstAttribute="top" secondItem="1Wl-Tl-C3F" secondAttribute="bottom" id="uXt-TQ-3VY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="BCY-GT-0pc" secondAttribute="trailing" id="ybI-xD-WVc"/>
                         </constraints>

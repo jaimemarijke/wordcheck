@@ -20,6 +20,8 @@ class DefinitionEntry {
     }
 }
 
+let PREFERRED_PARTS_OF_SPEECH_ORDER = ["noun", "verb"]
+
 
 /// Implement groupBy, inspired by https://stackoverflow.com/questions/41564580/group-elements-of-an-array-by-some-property
 extension Sequence {
@@ -63,18 +65,39 @@ func formatDefinitions(definitionEntries: [DefinitionEntry]) -> String {
     
     // Group definitions by part of speech
     let definitionsGroupedByPartOfSpeech: [String: [DefinitionEntry]] = definitionEntries.groupBy { entry in entry.partOfSpeech ?? "" }
-    for (partOfSpeech, definitions) in definitionsGroupedByPartOfSpeech {
-        formattedDefinitions.append("(\(partOfSpeech.capitalized))")
-        
-        // Enumerate a list of definitions
-        for (index, entry) in definitions.enumerated() {
-            formattedDefinitions.append("\(index + 1). \(entry.definition)")
+    
+    // Start with most common parts of speech, in a preferred order
+    for partOfSpeech in PREFERRED_PARTS_OF_SPEECH_ORDER {
+        if let definitions = definitionsGroupedByPartOfSpeech[partOfSpeech] {
+            formattedDefinitions += formatPartOfSpeechGroupedDefinitions(partOfSpeech: partOfSpeech, definitions: definitions)
         }
-        
-        formattedDefinitions.append("")
+    }
+    
+    // Finish with the remaining, more esoteric parts of speech
+    for (partOfSpeech, definitions) in definitionsGroupedByPartOfSpeech {
+        if PREFERRED_PARTS_OF_SPEECH_ORDER.contains(partOfSpeech) { continue }
+
+        formattedDefinitions += formatPartOfSpeechGroupedDefinitions(partOfSpeech: partOfSpeech, definitions: definitions)
     }
     
     return formattedDefinitions.joined(separator: "\n")
+}
+
+
+/// Format a set of definitions for a particular part of speech
+private func formatPartOfSpeechGroupedDefinitions(partOfSpeech: String, definitions: [DefinitionEntry]) -> [String] {
+    var formattedDefinitions: [String] = []
+
+    formattedDefinitions.append("(\(partOfSpeech.capitalized))")
+    
+    // Enumerate a list of definitions
+    for (index, entry) in definitions.enumerated() {
+        formattedDefinitions.append("\(index + 1). \(entry.definition)")
+    }
+    
+    formattedDefinitions.append("")
+    
+    return formattedDefinitions
 }
 
 
@@ -125,7 +148,11 @@ func lookupDefinitionWordNik(word: String, completion: @escaping ((_ definitionE
             }
             
             let definitionEntries = json.map({
-                result in DefinitionEntry(word: word, definition: result["text"] as! String, partOfSpeech: result["partOfSpeech"] as? String)
+                result in DefinitionEntry(
+                    word: word,
+                    definition: result["text"] as! String,
+                    partOfSpeech: standardizePartsOfSpeech(partOfSpeech: result["partOfSpeech"] as? String ?? "")
+                )
             })
             
             completion(definitionEntries)
@@ -166,7 +193,11 @@ func lookupDefinitionWordsAPI(word: String, completion: @escaping ((_ definition
             }
             
             let definitionEntries = results.map({
-                result in DefinitionEntry(word: word, definition: result["definition"] as! String, partOfSpeech: result["partOfSpeech"] as? String)
+                result in DefinitionEntry(
+                    word: word,
+                    definition: result["definition"] as! String,
+                    partOfSpeech: result["partOfSpeech"] as? String
+                )
             })
             
             completion(definitionEntries)
@@ -230,4 +261,13 @@ func lookupDefinitionOxfordDictionaries(word: String, completion: @escaping ((_ 
             
             completion(definitionEntries)
     }
+}
+
+private func standardizePartsOfSpeech(partOfSpeech: String) -> String {
+    let standardized = [
+        "verb-intransitive": "verb",
+        "verb-transitive": "verb"
+    ]
+    
+    return standardized[partOfSpeech] ?? partOfSpeech
 }
