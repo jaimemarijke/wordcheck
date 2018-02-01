@@ -34,13 +34,13 @@
 
 /* Begin PBXFileReference section */
 		5B9211B08D5A36B66FD7577E /* Pods-Word Checker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Word Checker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Word Checker/Pods-Word Checker.debug.xcconfig"; sourceTree = "<group>"; };
-		6FBA7ACB2014050D009F1E0C /* Word Checker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Word Checker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FBA7ACB2014050D009F1E0C /* Word Check.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Word Check.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FBA7ACE2014050D009F1E0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6FBA7AD02014050D009F1E0C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6FBA7AD32014050D009F1E0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6FBA7AD82014050D009F1E0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6FBA7ADA2014050D009F1E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6FBA7ADF2014050D009F1E0C /* Word CheckerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Word CheckerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FBA7ADF2014050D009F1E0C /* Word CheckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Word CheckTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FBA7AE32014050D009F1E0C /* Word_CheckerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word_CheckerTests.swift; sourceTree = "<group>"; };
 		6FBA7AE52014050D009F1E0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6FE69AF620155EAA00D47A16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../Assets.xcassets; sourceTree = "<group>"; };
@@ -86,8 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				6FE69AF620155EAA00D47A16 /* Assets.xcassets */,
-				6FBA7ACD2014050D009F1E0C /* Word Checker */,
-				6FBA7AE22014050D009F1E0C /* Word CheckerTests */,
+				6FBA7ACD2014050D009F1E0C /* Word Check */,
+				6FBA7AE22014050D009F1E0C /* Word CheckTests */,
 				6FBA7ACC2014050D009F1E0C /* Products */,
 				21D63DB9001D09218EEF9AC2 /* Pods */,
 				CD3E74FA81389343BFA6E583 /* Frameworks */,
@@ -97,13 +97,13 @@
 		6FBA7ACC2014050D009F1E0C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6FBA7ACB2014050D009F1E0C /* Word Checker.app */,
-				6FBA7ADF2014050D009F1E0C /* Word CheckerTests.xctest */,
+				6FBA7ACB2014050D009F1E0C /* Word Check.app */,
+				6FBA7ADF2014050D009F1E0C /* Word CheckTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6FBA7ACD2014050D009F1E0C /* Word Checker */ = {
+		6FBA7ACD2014050D009F1E0C /* Word Check */ = {
 			isa = PBXGroup;
 			children = (
 				6FEB9165201429BF00F814E8 /* minisowpods.txt */,
@@ -118,16 +118,16 @@
 				6FBA7AD72014050D009F1E0C /* LaunchScreen.storyboard */,
 				6FBA7ADA2014050D009F1E0C /* Info.plist */,
 			);
-			path = "Word Checker";
+			path = "Word Check";
 			sourceTree = "<group>";
 		};
-		6FBA7AE22014050D009F1E0C /* Word CheckerTests */ = {
+		6FBA7AE22014050D009F1E0C /* Word CheckTests */ = {
 			isa = PBXGroup;
 			children = (
 				6FBA7AE32014050D009F1E0C /* Word_CheckerTests.swift */,
 				6FBA7AE52014050D009F1E0C /* Info.plist */,
 			);
-			path = "Word CheckerTests";
+			path = "Word CheckTests";
 			sourceTree = "<group>";
 		};
 		CD3E74FA81389343BFA6E583 /* Frameworks */ = {
@@ -141,9 +141,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6FBA7ACA2014050D009F1E0C /* Word Checker */ = {
+		6FBA7ACA2014050D009F1E0C /* Word Check */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6FBA7AE82014050D009F1E0C /* Build configuration list for PBXNativeTarget "Word Checker" */;
+			buildConfigurationList = 6FBA7AE82014050D009F1E0C /* Build configuration list for PBXNativeTarget "Word Check" */;
 			buildPhases = (
 				E15681FD4A87CB4CFC4A802B /* [CP] Check Pods Manifest.lock */,
 				6FBA7AC72014050D009F1E0C /* Sources */,
@@ -156,14 +156,14 @@
 			);
 			dependencies = (
 			);
-			name = "Word Checker";
+			name = "Word Check";
 			productName = "Word Checker";
-			productReference = 6FBA7ACB2014050D009F1E0C /* Word Checker.app */;
+			productReference = 6FBA7ACB2014050D009F1E0C /* Word Check.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6FBA7ADE2014050D009F1E0C /* Word CheckerTests */ = {
+		6FBA7ADE2014050D009F1E0C /* Word CheckTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6FBA7AEB2014050D009F1E0C /* Build configuration list for PBXNativeTarget "Word CheckerTests" */;
+			buildConfigurationList = 6FBA7AEB2014050D009F1E0C /* Build configuration list for PBXNativeTarget "Word CheckTests" */;
 			buildPhases = (
 				6FBA7ADB2014050D009F1E0C /* Sources */,
 				6FBA7ADC2014050D009F1E0C /* Frameworks */,
@@ -174,9 +174,9 @@
 			dependencies = (
 				6FBA7AE12014050D009F1E0C /* PBXTargetDependency */,
 			);
-			name = "Word CheckerTests";
+			name = "Word CheckTests";
 			productName = "Word CheckerTests";
-			productReference = 6FBA7ADF2014050D009F1E0C /* Word CheckerTests.xctest */;
+			productReference = 6FBA7ADF2014050D009F1E0C /* Word CheckTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -200,7 +200,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6FBA7AC62014050D009F1E0C /* Build configuration list for PBXProject "Word Checker" */;
+			buildConfigurationList = 6FBA7AC62014050D009F1E0C /* Build configuration list for PBXProject "Word Check" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -213,8 +213,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6FBA7ACA2014050D009F1E0C /* Word Checker */,
-				6FBA7ADE2014050D009F1E0C /* Word CheckerTests */,
+				6FBA7ACA2014050D009F1E0C /* Word Check */,
+				6FBA7ADE2014050D009F1E0C /* Word CheckTests */,
 			);
 		};
 /* End PBXProject section */
@@ -322,7 +322,7 @@
 /* Begin PBXTargetDependency section */
 		6FBA7AE12014050D009F1E0C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6FBA7ACA2014050D009F1E0C /* Word Checker */;
+			target = 6FBA7ACA2014050D009F1E0C /* Word Check */;
 			targetProxy = 6FBA7AE02014050D009F1E0C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -461,9 +461,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T4F7AES8JA;
-				INFOPLIST_FILE = "Word Checker/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Word Check/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jaimemarijke.Word-Checker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jaimemarijke.Word-Check";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -477,9 +477,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T4F7AES8JA;
-				INFOPLIST_FILE = "Word Checker/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Word Check/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.jaimemarijke.Word-Checker";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jaimemarijke.Word-Check";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -497,7 +497,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Word Checker.app/Word Checker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Word Check.app/Word Check";
 			};
 			name = Debug;
 		};
@@ -512,14 +512,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Word Checker.app/Word Checker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Word Check.app/Word Check";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6FBA7AC62014050D009F1E0C /* Build configuration list for PBXProject "Word Checker" */ = {
+		6FBA7AC62014050D009F1E0C /* Build configuration list for PBXProject "Word Check" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6FBA7AE62014050D009F1E0C /* Debug */,
@@ -528,7 +528,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6FBA7AE82014050D009F1E0C /* Build configuration list for PBXNativeTarget "Word Checker" */ = {
+		6FBA7AE82014050D009F1E0C /* Build configuration list for PBXNativeTarget "Word Check" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6FBA7AE92014050D009F1E0C /* Debug */,
@@ -537,7 +537,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6FBA7AEB2014050D009F1E0C /* Build configuration list for PBXNativeTarget "Word CheckerTests" */ = {
+		6FBA7AEB2014050D009F1E0C /* Build configuration list for PBXNativeTarget "Word CheckTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6FBA7AEC2014050D009F1E0C /* Debug */,

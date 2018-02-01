@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Word Checker.xcodeproj">
+      location = "group:/Users/jaime/personal/Word Checker/Word Check.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
