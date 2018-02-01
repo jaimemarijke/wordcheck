@@ -106,7 +106,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
 
         else if (allowedWords.contains(word.lowercased())) {
             markGood()
-            showDefinition(word: word)
+            // TODO: Somehow monetize definitions
+            // showDefinition(word: word)
         }
 
         else {
