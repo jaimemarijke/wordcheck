@@ -23,6 +23,23 @@ class DefinitionEntry {
 let PREFERRED_PARTS_OF_SPEECH_ORDER = ["noun", "verb"]
 
 
+func valueForAPIKey(api: String, keyname:String) -> String {
+    // Credit to the original source for this technique at
+    // http://blog.lazerwalker.com/blog/2014/05/14/handling-private-api-keys-in-open-source-ios-apps
+    let filePath = Bundle.main.path(forResource: "APIKeys", ofType: "plist")
+
+    let apis = NSDictionary(contentsOfFile: filePath!)
+    
+    print("apis: \(apis)")
+    if let apiKeys = apis?[api] as? [String: Any], let key = apiKeys[keyname] as? String {
+        print("key: \(key)")
+        return key
+    }
+    
+    return ""
+}
+
+
 /// Implement groupBy, inspired by https://stackoverflow.com/questions/41564580/group-elements-of-an-array-by-some-property
 extension Sequence {
     func groupBy<GroupingType: Hashable>(by key: (Iterator.Element) -> GroupingType) -> [GroupingType: [Iterator.Element]] {
@@ -126,7 +143,7 @@ func lookupDefinitionWordNik(word: String, completion: @escaping ((_ definitionE
     print("Querying WordNik for \(word) definition")
     
     let headers: HTTPHeaders = [
-        "api_key": "be130b7e0da73d978500700212f0c86fd1ebb7668b8a99a1e",
+        "api_key": valueForAPIKey(api: "wordnik", keyname:"api_key")
     ]
     
     Alamofire.request(
@@ -163,7 +180,7 @@ func lookupDefinitionWordsAPI(word: String, completion: @escaping ((_ definition
     print("Querying Words API for \(word) definition")
     
     let headers: HTTPHeaders = [
-        "X-Mashape-Key": "CNobznHBT4mshurXH1ATPdbNpmxAp1mFZ38jsnFy5Fmz7NssgR",
+        "X-Mashape-Key": valueForAPIKey(api: "wordsapi", keyname:"api_key"),
         "X-Mashape-Host": "wordsapiv1.p.mashape.com"
     ]
     
@@ -208,8 +225,8 @@ func lookupDefinitionOxfordDictionaries(word: String, completion: @escaping ((_ 
     print("Querying Oxford Dictionaries for \(word) definition")
     
     let headers: HTTPHeaders = [
-        "app_id": "d4a39582",
-        "app_key": "bc30dd5e7a03fbe42093d7c7857c47bc",
+        "app_id": valueForAPIKey(api: "oxford", keyname:"app_id"),
+        "app_key": valueForAPIKey(api: "oxford", keyname:"api_key"),
         "Accept": "application/json"
     ]
     

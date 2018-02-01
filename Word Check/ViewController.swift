@@ -65,7 +65,6 @@ class ViewController: UIViewController, UISearchBarDelegate {
     /// Handle tap on "Powered by WordNik" logo to open word definition in Safari
     @objc func wordNikImageTapped()
     {
-        print("image tapped")
         openUrlInSafari(urlString: "http://www.wordnik.com/words/\(currentWord)")
     }
     
