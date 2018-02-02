@@ -12,7 +12,7 @@ import SafariServices
 
 let NO_NETWORK_ERROR_MESSAGE = "Definitions require internet connection"
 let NO_DEFINITION_ERROR_MESSAGE = "No definitions found"
-let WORD_LIST_NAME = "enable"
+let WORD_LIST_NAME = "twl2014"
 
 
 class ViewController: UIViewController, UISearchBarDelegate {

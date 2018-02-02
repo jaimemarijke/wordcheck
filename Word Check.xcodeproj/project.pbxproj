@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C7E61B5A58FB8DC75890D1F /* Pods_Word_Checker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A1381684E135736F80703A /* Pods_Word_Checker.framework */; };
+		6F2ED23B2024456400F4F5FC /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2ED23A2024456400F4F5FC /* StoreKit.framework */; };
 		6F69BB5E2022A347005AA7EC /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F69BB5D2022A346005AA7EC /* APIKeys.plist */; };
 		6FBA7ACF2014050D009F1E0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA7ACE2014050D009F1E0C /* AppDelegate.swift */; };
 		6FBA7AD12014050D009F1E0C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA7AD02014050D009F1E0C /* ViewController.swift */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		5B9211B08D5A36B66FD7577E /* Pods-Word Checker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Word Checker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Word Checker/Pods-Word Checker.debug.xcconfig"; sourceTree = "<group>"; };
+		6F2ED23A2024456400F4F5FC /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		6F69BB5D2022A346005AA7EC /* APIKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 		6FBA7ACB2014050D009F1E0C /* Word Check.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Word Check.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FBA7ACE2014050D009F1E0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C7E61B5A58FB8DC75890D1F /* Pods_Word_Checker.framework in Frameworks */,
+				6F2ED23B2024456400F4F5FC /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +139,7 @@
 		CD3E74FA81389343BFA6E583 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6F2ED23A2024456400F4F5FC /* StoreKit.framework */,
 				F0A1381684E135736F80703A /* Pods_Word_Checker.framework */,
 			);
 			name = Frameworks;
@@ -195,6 +199,11 @@
 					6FBA7ACA2014050D009F1E0C = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					6FBA7ADE2014050D009F1E0C = {
 						CreatedOnToolsVersion = 9.0;
@@ -383,6 +392,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = T4F7AES8JA;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -440,6 +450,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = T4F7AES8JA;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
