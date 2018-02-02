@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina3_5" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,29 +15,29 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Robbins'" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYo-Em-Gzz">
-                                <rect key="frame" x="0.0" y="66" width="320" height="53"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Robbins'" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYo-Em-Gzz">
+                                <rect key="frame" x="0.0" y="70" width="375" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="25"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Word Check" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="raz-tC-Bk0">
-                                <rect key="frame" x="0.0" y="107" width="320" height="57"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="40"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bird + tile - 500p" translatesAutoresizingMaskIntoConstraints="NO" id="CE4-0b-gop">
-                                <rect key="frame" x="-7" y="160" width="334" height="300"/>
+                                <rect key="frame" x="20.5" y="347" width="334" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="334" id="Hy3-2E-dtM"/>
                                     <constraint firstAttribute="width" secondItem="CE4-0b-gop" secondAttribute="height" multiplier="167:150" id="SLQ-Ul-krm"/>
                                     <constraint firstAttribute="height" constant="300" id="aLD-CA-cVd"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Word Check" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="raz-tC-Bk0">
+                                <rect key="frame" x="0.0" y="100" width="375" height="48"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="40"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.23137254901960785" green="0.23137254901960785" blue="0.23137254901960785" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -46,8 +46,10 @@
                             <constraint firstItem="CE4-0b-gop" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="FmU-74-ein"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CE4-0b-gop" secondAttribute="bottom" constant="20" id="MNj-gB-fiG"/>
                             <constraint firstItem="xYo-Em-Gzz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Q2x-s7-dZF"/>
+                            <constraint firstItem="xYo-Em-Gzz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="QPj-Qd-d0n"/>
                             <constraint firstItem="raz-tC-Bk0" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="huE-RK-uzE"/>
                             <constraint firstItem="raz-tC-Bk0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pMh-jO-1Gv"/>
+                            <constraint firstItem="raz-tC-Bk0" firstAttribute="top" secondItem="xYo-Em-Gzz" secondAttribute="bottom" id="yZn-c9-nWM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
