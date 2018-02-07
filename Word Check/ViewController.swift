@@ -27,6 +27,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var definitionLabel: UITextView!
     @IBOutlet weak var poweredBy: UIImageView!
     @IBOutlet weak var dumbBirdImage: UIImageView!
+    @IBOutlet weak var purchaseDefinitionsButton: UIButton!
     
     var allowedWords: Set<String> = []
     var currentWord: String = ""
@@ -38,12 +39,14 @@ class ViewController: UIViewController, UISearchBarDelegate {
 
     let flatRed = UIColor(red: 231/255, green: 76/255, blue: 60/255, alpha: 1)
     let flatGreen = UIColor(red: 39/255, green: 174/255, blue: 96/255, alpha: 1)
-    
+
     //MARK: Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchText.delegate = self
+        
+        resetResultDisplay()
 
         allowedWords = loadWordList(fileName: WORD_LIST_NAME)
     
@@ -63,17 +66,41 @@ class ViewController: UIViewController, UISearchBarDelegate {
                 self.products = products!
             }
         }
+        
+        // Add a notification listener so that view can update when in-app purchase is complete
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(ViewController.handlePurchaseNotification(_:)),
+            name: NSNotification.Name(rawValue: IAPHelper.IAPHelperPurchaseNotification),
+            object: nil
+        )
+        
+        purchaseDefinitionsButton.layer.borderWidth = 1
+        purchaseDefinitionsButton.layer.borderColor = flatGreen.cgColor
+        purchaseDefinitionsButton.layer.cornerRadius = 5
+    }
+    
+    @objc func handlePurchaseNotification(_ notification: Notification) {
+        print("Purchase succeeded!")
+        showDefinition(word: self.currentWord)
+        
+        // TODO: Handle failure cases, like unable to connect to iTunes
+    }
+    
+    @IBAction func purchaseDefinitionsButton(_ sender: UIButton) {
+        WordCheckProducts.store.buyProduct(self.products[0])
+        
+        purchaseDefinitionsButton.isHidden = true
+        showDefinitionLabel()
+        definitionText.text = "Purchasing definitions..."
     }
     
     /// Handle tap on dumb bird image to launch "About" dialog
     @objc func birdImageTapped()
     {
-        print("Testing in-app purchase!")
-        WordCheckProducts.store.buyProduct(self.products[0])
-        
-//        let aboutMessage = UIAlertController(title: "About", message: "This app is dedicated to my grandmother, M. Robbins, who immigrated to the United States from Holland as a teenager. She learned to play Scrabble to help improve her English vocabulary, and playing the game became a favorite pasttime of our whole family. True to her original goal of growing vocabulary, our house rules specify that we are allowed to look up words in the dictionary so long as we can provide the definition on command. \n\n This app uses the \(WORD_LIST_NAME.uppercased()) word list.", preferredStyle: .alert)
-//        aboutMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//        self.present(aboutMessage, animated: true, completion: nil)
+        let aboutMessage = UIAlertController(title: "About", message: "This app is dedicated to my grandmother, M. Robbins, who immigrated to the United States from Holland as a teenager. She learned to play Scrabble to help improve her English vocabulary, and playing the game became a favorite pasttime of our whole family. True to her original goal of growing vocabulary, our house rules specify that we are allowed to look up words in the dictionary so long as we can provide the definition on command. \n\n This app uses the \(WORD_LIST_NAME.uppercased()) word list.", preferredStyle: .alert)
+        aboutMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(aboutMessage, animated: true, completion: nil)
     }
 
     /// Handle tap on "Powered by WordNik" logo to open word definition in Safari
@@ -120,13 +147,15 @@ class ViewController: UIViewController, UISearchBarDelegate {
 
         else if (allowedWords.contains(word.lowercased())) {
             markGood()
-            // TODO: Somehow monetize definitions
+
             if WordCheckProducts.store.isProductPurchased(WordCheckProducts.Definitions){
                 print("User has purchased definitions")
                 showDefinition(word: word)
+            } else if (self.products.count > 0) {
+                print("User has not purchased definitions, show purchase button")
+                purchaseDefinitionsButton.isHidden = false
             } else {
-                print("User has not purchased definitions")
-                // Prompt to purchase!
+                print("User has not purchased definitions, and can't connect to iTunes store or something else has gone wrong :(")
             }
         }
 
@@ -143,6 +172,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
         definitionLabel.text = ""
         poweredBy.isHidden = true
         definitionText.text = ""
+        purchaseDefinitionsButton.isHidden = true
     }
     
     

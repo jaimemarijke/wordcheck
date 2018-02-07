@@ -110,6 +110,17 @@
                                     <constraint firstAttribute="height" constant="18" id="Oa8-8S-wEa"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3VZ-M4-u9Q">
+                                <rect key="frame" x="20" y="326" width="335" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Get Word Definitions - $1.99">
+                                    <color key="titleColor" red="0.15680416929999999" green="0.72640058289999998" blue="0.45378361249999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="purchaseDefinitionsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rpL-gw-a7h"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -147,6 +158,7 @@
                         <outlet property="dumbBirdImage" destination="hzl-iS-8Gl" id="U7m-Iz-jwh"/>
                         <outlet property="isText" destination="bE0-NQ-hXd" id="iKn-52-myq"/>
                         <outlet property="poweredBy" destination="07m-Fb-vPG" id="cMD-b4-uPh"/>
+                        <outlet property="purchaseDefinitionsButton" destination="3VZ-M4-u9Q" id="o5Q-vz-G70"/>
                         <outlet property="searchDisplayText" destination="rlS-PJ-Imh" id="E7S-bT-DNr"/>
                         <outlet property="searchText" destination="eZd-7F-I6z" id="I3B-ls-2CX"/>
                     </connections>
