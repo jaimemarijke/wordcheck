@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 import Alamofire
 import SafariServices
 
@@ -29,6 +30,9 @@ class ViewController: UIViewController, UISearchBarDelegate {
     
     var allowedWords: Set<String> = []
     var currentWord: String = ""
+    
+    // List of in-app purchased products
+    var products = [SKProduct]()
 
     //MARK: Colors
 
@@ -52,14 +56,24 @@ class ViewController: UIViewController, UISearchBarDelegate {
         let poweredByTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(wordNikImageTapped))
         poweredBy.isUserInteractionEnabled = true
         poweredBy.addGestureRecognizer(poweredByTapGestureRecognizer)
+        
+        // Look up available in-app purchase products
+        WordCheckProducts.store.requestProducts{success, products in
+            if success {
+                self.products = products!
+            }
+        }
     }
     
     /// Handle tap on dumb bird image to launch "About" dialog
     @objc func birdImageTapped()
     {
-        let aboutMessage = UIAlertController(title: "About", message: "This app is dedicated to my grandmother, M. Robbins, who immigrated to the United States from Holland as a teenager. She learned to play Scrabble to help improve her English vocabulary, and playing the game became a favorite pasttime of our whole family. True to her original goal of growing vocabulary, our house rules specify that we are allowed to look up words in the dictionary so long as we can provide the definition on command. \n\n This app uses the \(WORD_LIST_NAME.uppercased()) word list.", preferredStyle: .alert)
-        aboutMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(aboutMessage, animated: true, completion: nil)
+        print("Testing in-app purchase!")
+        WordCheckProducts.store.buyProduct(self.products[0])
+        
+//        let aboutMessage = UIAlertController(title: "About", message: "This app is dedicated to my grandmother, M. Robbins, who immigrated to the United States from Holland as a teenager. She learned to play Scrabble to help improve her English vocabulary, and playing the game became a favorite pasttime of our whole family. True to her original goal of growing vocabulary, our house rules specify that we are allowed to look up words in the dictionary so long as we can provide the definition on command. \n\n This app uses the \(WORD_LIST_NAME.uppercased()) word list.", preferredStyle: .alert)
+//        aboutMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//        self.present(aboutMessage, animated: true, completion: nil)
     }
 
     /// Handle tap on "Powered by WordNik" logo to open word definition in Safari
@@ -107,7 +121,13 @@ class ViewController: UIViewController, UISearchBarDelegate {
         else if (allowedWords.contains(word.lowercased())) {
             markGood()
             // TODO: Somehow monetize definitions
-            // showDefinition(word: word)
+            if WordCheckProducts.store.isProductPurchased(WordCheckProducts.Definitions){
+                print("User has purchased definitions")
+                showDefinition(word: word)
+            } else {
+                print("User has not purchased definitions")
+                // Prompt to purchase!
+            }
         }
 
         else {
