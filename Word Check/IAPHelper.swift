@@ -33,13 +33,7 @@ open class IAPHelper : NSObject  {
     
     static let IAPHelperPurchaseNotification = "IAPHelperPurchaseNotification"
     
-    public init(productIds: Set<ProductIdentifier>) {
-        // TODO: Remove once I'm done testing
-        // For testing, clear out user defaults:
-        let domain = Bundle.main.bundleIdentifier!
-        UserDefaults.standard.removePersistentDomain(forName: domain)
-        UserDefaults.standard.synchronize()
-        
+    public init(productIds: Set<ProductIdentifier>) {        
         productIdentifiers = productIds
         for productIdentifier in productIds {
             let purchased = UserDefaults.standard.bool(forKey: productIdentifier)

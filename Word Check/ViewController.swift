@@ -98,7 +98,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
     /// Handle tap on dumb bird image to launch "About" dialog
     @objc func birdImageTapped()
     {
-        let aboutMessage = UIAlertController(title: "About", message: "This app is dedicated to my grandmother, M. Robbins, who immigrated to the United States from Holland as a teenager. She learned to play Scrabble to help improve her English vocabulary, and playing the game became a favorite pasttime of our whole family. True to her original goal of growing vocabulary, our house rules specify that we are allowed to look up words in the dictionary so long as we can provide the definition on command. \n\n This app uses the \(WORD_LIST_NAME.uppercased()) word list.", preferredStyle: .alert)
+        let aboutMessage = UIAlertController(title: "About", message: "This app is dedicated to my grandmother, M. Robbins, who immigrated to the United States from Holland as a teenager. She learned to play Scrabble to help improve her English vocabulary, and playing the game became a favorite pastime of our whole family. True to her original goal of growing vocabulary, our house rules specify that we are allowed to look up words in the dictionary so long as we can provide the definition on command. \n\n This app uses the \(WORD_LIST_NAME.uppercased()) word list.", preferredStyle: .alert)
         aboutMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(aboutMessage, animated: true, completion: nil)
     }
