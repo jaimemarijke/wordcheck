@@ -10,11 +10,45 @@ import UIKit
 import StoreKit
 import Alamofire
 import SafariServices
+import Foundation
 
 let NO_NETWORK_ERROR_MESSAGE = "Definitions require internet connection"
 let NO_DEFINITION_ERROR_MESSAGE = "No definitions found"
 let WORD_LIST_NAME = "twl2014"
 
+/// Allows UIButton border width, corner radius, and color to be editable in the Interface Builder
+@IBDesignable class DesignableButton: UIButton {}
+
+extension UIButton {
+    @IBInspectable var borderWidth: CGFloat {
+        set {
+            layer.borderWidth = newValue
+        }
+        get {
+            return layer.borderWidth
+        }
+    }
+    
+    @IBInspectable var cornerRadius: CGFloat {
+        set {
+            layer.cornerRadius = newValue
+        }
+        get {
+            return layer.cornerRadius
+        }
+    }
+    
+    @IBInspectable var borderColor: UIColor? {
+        set {
+            guard let uiColor = newValue else { return }
+            layer.borderColor = uiColor.cgColor
+        }
+        get {
+            guard let color = layer.borderColor else { return nil }
+            return UIColor(cgColor: color)
+        }
+    }
+}
 
 class ViewController: UIViewController, UISearchBarDelegate {
     //MARK: Properties
@@ -27,7 +61,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var definitionLabel: UITextView!
     @IBOutlet weak var poweredBy: UIImageView!
     @IBOutlet weak var dumbBirdImage: UIImageView!
-    @IBOutlet weak var purchaseDefinitionsButton: UIButton!
+    @IBOutlet weak var purchaseDefinitionsButton: DesignableButton!
+    @IBOutlet weak var restorePurchasesButton: DesignableButton!
     
     var allowedWords: Set<String> = []
     var currentWord: String = ""
@@ -74,10 +109,6 @@ class ViewController: UIViewController, UISearchBarDelegate {
             name: NSNotification.Name(rawValue: IAPHelper.IAPHelperPurchaseNotification),
             object: nil
         )
-        
-        purchaseDefinitionsButton.layer.borderWidth = 1
-        purchaseDefinitionsButton.layer.borderColor = flatGreen.cgColor
-        purchaseDefinitionsButton.layer.cornerRadius = 5
     }
     
     @objc func handlePurchaseNotification(_ notification: Notification) {
@@ -86,13 +117,22 @@ class ViewController: UIViewController, UISearchBarDelegate {
         
         // TODO: Handle failure cases, like unable to connect to iTunes
     }
-    
+
     @IBAction func purchaseDefinitionsButton(_ sender: UIButton) {
         WordCheckProducts.store.buyProduct(self.products[0])
-        
+
         purchaseDefinitionsButton.isHidden = true
+        restorePurchasesButton.isHidden = true
         showDefinitionLabel()
         definitionText.text = "Purchasing definitions..."
+    }
+    
+    @IBAction func restorePurchasesButton(_ sender: UIButton) {
+        WordCheckProducts.store.restorePurchases()
+
+        purchaseDefinitionsButton.isHidden = true
+        restorePurchasesButton.isHidden = true
+        definitionText.text = "Restoring purchases..."
     }
     
     /// Handle tap on dumb bird image to launch "About" dialog
@@ -139,13 +179,15 @@ class ViewController: UIViewController, UISearchBarDelegate {
 
     private func checkWordAndUpdateDisplay(word: String) {
         resetResultDisplay()
-        searchDisplayText.text = word.uppercased()
         
-        if word == "" {
+        if (word == "" || isObscenity(word: word)) {
+            self.searchDisplayText.text = ""
             return
         }
+        
+        searchDisplayText.text = word.uppercased()
 
-        else if (allowedWords.contains(word.lowercased())) {
+        if (allowedWords.contains(word.lowercased())) {
             markGood()
 
             if WordCheckProducts.store.isProductPurchased(WordCheckProducts.Definitions){
@@ -154,6 +196,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
             } else if (self.products.count > 0) {
                 print("User has not purchased definitions, show purchase button")
                 purchaseDefinitionsButton.isHidden = false
+                restorePurchasesButton.isHidden = false
             } else {
                 print("User has not purchased definitions, and can't connect to iTunes store or something else has gone wrong :(")
             }
@@ -173,8 +216,21 @@ class ViewController: UIViewController, UISearchBarDelegate {
         poweredBy.isHidden = true
         definitionText.text = ""
         purchaseDefinitionsButton.isHidden = true
+        restorePurchasesButton.isHidden = true
     }
     
+    /// Check if a word is an obscenity
+    private func isObscenity(word: String) -> Bool {
+        let OBSCENE_WORDS = ["fuck", "cunt", "cocksucker"]
+        
+        for obsceneWord in OBSCENE_WORDS {
+            if word.contains(obsceneWord) {
+                return true
+            }
+        }
+        
+        return false
+    }
     
     /// Indicate a given word is "GOOD"
     private func markGood() {
